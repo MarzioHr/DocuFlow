@@ -32,13 +32,15 @@ def create_doc(request):
             return redirect(f'/success')
 
 def documentations(request):
-    documentations = Documentation.objects.get.all()
-    return render(request, TEMPLATE, {"documentations":documentations})
+    documentations = Documentation.objects.all()
+    return render(request, 'home/tables.html', {"documentations":documentations})
 
 def filtered_documentations(request,bu):
     business_unit = BusinessUnit.objects.filter(name=bu)
-    documentations = Documentation.objects.filter(business_unit=business_unit)
-    return render(request, TEMPLATE, {"documentations":documentations})
+    print(len(business_unit))
+    documentations = Documentation.objects.filter(business_unit__name=bu)
+    print(len(documentations))
+    return render(request, 'home/tables.html', {"documentations":documentations})
 
 
 @login_required(login_url="/login/")
