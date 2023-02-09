@@ -37,11 +37,12 @@ def documentations(request):
 
 def filtered_documentations(request,bu):
     business_unit = BusinessUnit.objects.filter(name=bu)
-    print(len(business_unit))
     documentations = Documentation.objects.filter(business_unit__name=bu)
-    print(len(documentations))
     return render(request, 'home/tables.html', {"documentations":documentations})
 
+def documentation_singular(request, h):
+    document = Documentation.objects.filter(heading=h)
+    return render(request, 'home/profile.html', {"document":document})
 
 @login_required(login_url="/login/")
 def pages(request):
